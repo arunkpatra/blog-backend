@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    continue-on-error: false
+    data: classpath:sql/data-derby.sql
+    hikari:
+      connection-test-query: SELECT 1 FROM SYSIBM.SYSDUMMY1
+      maximum-pool-size: 50
+      minimum-idle: 10
+    initialization-mode: embedded
+    name: blogdb
+    platform: derby
+    schema: classpath:sql/schema-derby.sql
+    url: jdbc:derby:memory:blogdb;create=true
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
