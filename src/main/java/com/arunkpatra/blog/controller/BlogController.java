@@ -22,13 +22,13 @@ public class BlogController {
         this.blogService = blogService;
     }
 
-    @GetMapping(value = "/post/{id}", produces = {"application/json"})
+    @GetMapping(value = "/posts/{id}", produces = {"application/json"})
     @ResponseBody
     public ResponseEntity<Post> getPost(@PathVariable long id) throws BlogException {
         return new ResponseEntity<>(blogService.getPost(id), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/person/{id}", produces = {"application/json"})
+    @GetMapping(value = "/persons/{id}", produces = {"application/json"})
     @ResponseBody
     public ResponseEntity<Person> getPerson(@PathVariable long id) throws BlogException {
         return new ResponseEntity<>(blogService.getPerson(id), HttpStatus.OK);
