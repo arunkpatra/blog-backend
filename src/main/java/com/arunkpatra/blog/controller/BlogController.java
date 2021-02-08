@@ -2,8 +2,9 @@ package com.arunkpatra.blog.controller;
 
 import com.arunkpatra.blog.exception.BlogException;
 import com.arunkpatra.blog.model.ErrorResponse;
+import com.arunkpatra.blog.model.Person;
 import com.arunkpatra.blog.model.Post;
-import com.arunkpatra.blog.service.PostService;
+import com.arunkpatra.blog.service.BlogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,22 +16,24 @@ import org.springframework.web.bind.annotation.*;
 public class BlogController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BlogController.class);
-    private final PostService postService;
+    private final BlogService blogService;
 
-    public BlogController(PostService postService) {
-        this.postService = postService;
+    public BlogController(BlogService blogService) {
+        this.blogService = blogService;
     }
 
     @GetMapping(value = "/post/{id}", produces = {"application/json"})
     @ResponseBody
     public ResponseEntity<Post> getPost(@PathVariable long id) throws BlogException {
-
-        try {
-            return new ResponseEntity<>(postService.getPost(id), HttpStatus.OK);
-        } catch (Throwable t) {
-            throw new BlogException("Post not found");
-        }
+        return new ResponseEntity<>(blogService.getPost(id), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/person/{id}", produces = {"application/json"})
+    @ResponseBody
+    public ResponseEntity<Person> getPerson(@PathVariable long id) throws BlogException {
+        return new ResponseEntity<>(blogService.getPerson(id), HttpStatus.OK);
+    }
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BlogException.class)
